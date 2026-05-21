@@ -620,6 +620,10 @@ const VideosAdmin = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
+      if (!res.ok) {
+        const errorBody = await res.text();
+        throw new Error(`Function request failed: ${res.status} ${res.statusText} - ${errorBody}`);
+      }
       const result = await res.json();
       if (result.error) {
         toast({ title: "Fetch Error", description: result.error, variant: "destructive" });
