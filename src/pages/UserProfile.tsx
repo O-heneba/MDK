@@ -31,7 +31,7 @@ const UserProfile = () => {
         <div>
           <User className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
           <h1 className="font-display text-3xl text-foreground mb-2">Profile Not Found</h1>
-          <Link to="/" className="text-gold hover:underline">← Back to Fanbase</Link>
+          <Link to="/" className="text-gold hover:underline">← Back to Fanverse</Link>
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ const UserProfile = () => {
     <div className="min-h-screen bg-background pt-20 pb-16">
       <div className="container mx-auto px-4 max-w-2xl">
         <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold text-sm mb-8 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to Fanbase
+          <ArrowLeft className="w-4 h-4" /> Back to Fanverse
         </Link>
 
         <div className="gradient-card rounded-2xl border border-border p-8 card-shadow text-center">

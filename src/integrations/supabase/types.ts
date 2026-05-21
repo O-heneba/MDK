@@ -14,27 +14,351 @@ export type Database = {
   }
   public: {
     Tables: {
-      profiles: {
+      albums: {
+        Row: {
+          amazon_music_url: string | null
+          apple_music_url: string | null
+          audiomack_url: string | null
+          boomplay_url: string | null
+          cover_url: string | null
+          created_at: string
+          deezer_url: string | null
+          id: string
+          itunes_url: string | null
+          release_year: number | null
+          soundcloud_url: string | null
+          spotify_url: string | null
+          tidal_url: string | null
+          title: string
+          youtube_music_url: string | null
+          youtube_url: string | null
+        }
+        Insert: {
+          amazon_music_url?: string | null
+          apple_music_url?: string | null
+          audiomack_url?: string | null
+          boomplay_url?: string | null
+          cover_url?: string | null
+          created_at?: string
+          deezer_url?: string | null
+          id?: string
+          itunes_url?: string | null
+          release_year?: number | null
+          soundcloud_url?: string | null
+          spotify_url?: string | null
+          tidal_url?: string | null
+          title: string
+          youtube_music_url?: string | null
+          youtube_url?: string | null
+        }
+        Update: {
+          amazon_music_url?: string | null
+          apple_music_url?: string | null
+          audiomack_url?: string | null
+          boomplay_url?: string | null
+          cover_url?: string | null
+          created_at?: string
+          deezer_url?: string | null
+          id?: string
+          itunes_url?: string | null
+          release_year?: number | null
+          soundcloud_url?: string | null
+          spotify_url?: string | null
+          tidal_url?: string | null
+          title?: string
+          youtube_music_url?: string | null
+          youtube_url?: string | null
+        }
+        Relationships: []
+      }
+      announcements: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          pinned: boolean | null
+          title: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          pinned?: boolean | null
+          title: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          pinned?: boolean | null
+          title?: string
+        }
+        Relationships: []
+      }
+      bars: {
+        Row: {
+          approved: boolean | null
+          created_at: string
+          excerpt: string
+          explanation: string
+          id: string
+          song: string
+          tags: string[] | null
+          user_id: string
+        }
+        Insert: {
+          approved?: boolean | null
+          created_at?: string
+          excerpt: string
+          explanation: string
+          id?: string
+          song: string
+          tags?: string[] | null
+          user_id: string
+        }
+        Update: {
+          approved?: boolean | null
+          created_at?: string
+          excerpt?: string
+          explanation?: string
+          id?: string
+          song?: string
+          tags?: string[] | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      channel_config: {
+        Row: {
+          channel_id: string
+          channel_url: string
+          created_at: string
+          display_count: number
+          id: string
+          last_fetched_at: string | null
+          last_rotated_at: string | null
+          rotation_offset: number
+          updated_at: string
+        }
+        Insert: {
+          channel_id: string
+          channel_url: string
+          created_at?: string
+          display_count?: number
+          id?: string
+          last_fetched_at?: string | null
+          last_rotated_at?: string | null
+          rotation_offset?: number
+          updated_at?: string
+        }
+        Update: {
+          channel_id?: string
+          channel_url?: string
+          created_at?: string
+          display_count?: number
+          id?: string
+          last_fetched_at?: string | null
+          last_rotated_at?: string | null
+          rotation_offset?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          created_at: string
+          description: string | null
+          event_date: string
+          id: string
+          image_url: string | null
+          is_upcoming: boolean | null
+          location: string | null
+          ticket_url: string | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          event_date: string
+          id?: string
+          image_url?: string | null
+          is_upcoming?: boolean | null
+          location?: string | null
+          ticket_url?: string | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          event_date?: string
+          id?: string
+          image_url?: string | null
+          is_upcoming?: boolean | null
+          location?: string | null
+          ticket_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      fan_content: {
+        Row: {
+          approved: boolean | null
+          caption: string
+          category: string
+          created_at: string
+          hashtags: string
+          id: string
+          user_id: string
+          video_url: string | null
+        }
+        Insert: {
+          approved?: boolean | null
+          caption: string
+          category?: string
+          created_at?: string
+          hashtags: string
+          id?: string
+          user_id: string
+          video_url?: string | null
+        }
+        Update: {
+          approved?: boolean | null
+          caption?: string
+          category?: string
+          created_at?: string
+          hashtags?: string
+          id?: string
+          user_id?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      fan_rewards: {
         Row: {
           created_at: string
           id: string
-          updated_at: string
+          message: string
+          reward_type: string
           user_id: string
-          username: string | null
         }
         Insert: {
           created_at?: string
           id?: string
-          updated_at?: string
+          message: string
+          reward_type?: string
           user_id: string
-          username?: string | null
         }
         Update: {
           created_at?: string
           id?: string
+          message?: string
+          reward_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      gallery: {
+        Row: {
+          approved: boolean | null
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          approved?: boolean | null
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          approved?: boolean | null
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
+      music_videos: {
+        Row: {
+          active: boolean | null
+          auto_fetched: boolean | null
+          created_at: string
+          display_order: number | null
+          id: string
+          title: string
+          video_id: string
+          year: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          auto_fetched?: boolean | null
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          title: string
+          video_id: string
+          year?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          auto_fetched?: boolean | null
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          title?: string
+          video_id?: string
+          year?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          id: string
+          instagram: string | null
+          location: string | null
+          tiktok: string | null
+          twitter: string | null
+          updated_at: string
+          user_id: string
+          username: string | null
+          youtube: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          id?: string
+          instagram?: string | null
+          location?: string | null
+          tiktok?: string | null
+          twitter?: string | null
+          updated_at?: string
+          user_id: string
+          username?: string | null
+          youtube?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          id?: string
+          instagram?: string | null
+          location?: string | null
+          tiktok?: string | null
+          twitter?: string | null
           updated_at?: string
           user_id?: string
           username?: string | null
+          youtube?: string | null
         }
         Relationships: []
       }

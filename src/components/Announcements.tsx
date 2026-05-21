@@ -13,6 +13,7 @@ interface Announcement {
 
 const Announcements = () => {
   const [items, setItems] = useState<Announcement[]>([]);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
     supabase
@@ -41,7 +42,7 @@ const Announcements = () => {
           </div>
         ) : (
           <div className="max-w-3xl mx-auto space-y-4">
-            {items.map((a) => (
+            {items.slice(0, visibleCount).map((a) => (
               <div
                 key={a.id}
                 className={`gradient-card rounded-2xl border p-6 card-shadow transition-all duration-300 ${
@@ -60,6 +61,13 @@ const Announcements = () => {
                 </div>
               </div>
             ))}
+            {items.length > visibleCount && (
+              <div className="text-center pt-4">
+                <button onClick={() => setVisibleCount((c) => c + 6)} className="inline-flex items-center gap-2 border border-gold/40 text-gold font-semibold px-6 py-2.5 rounded-full hover:bg-gold/10 transition-all text-sm">
+                  Load More ({items.length - visibleCount} remaining)
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

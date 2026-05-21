@@ -7,9 +7,16 @@ import { Link } from "react-router-dom";
 
 const PLATFORMS = [
   { name: "Spotify", url: "https://open.spotify.com/search/medikal" },
+  { name: "Apple Music", url: "https://music.apple.com/search?term=medikal" },
+  { name: "YouTube Music", url: "https://music.youtube.com/search?q=medikal" },
   { name: "Audiomack", url: "https://audiomack.com/medikal" },
   { name: "Boomplay", url: "https://www.boomplay.com/search/default/Medikal" },
-  { name: "YouTube", url: "https://www.youtube.com/@medikalmdk1" },
+  { name: "YouTube", url: "https://www.youtube.com/@medikal" },
+  { name: "Amazon Music", url: "https://music.amazon.com/search/medikal" },
+  { name: "Deezer", url: "https://www.deezer.com/search/medikal" },
+  { name: "SoundCloud", url: "https://soundcloud.com/search?q=medikal" },
+  { name: "Tidal", url: "https://tidal.com/search?q=medikal" },
+  { name: "iTunes Store", url: "https://music.apple.com/search?term=medikal" },
 ];
 
 const StreamEngine = () => {
@@ -133,7 +140,7 @@ const StreamEngine = () => {
               to="/auth"
               className="inline-flex items-center justify-center gap-2 bg-gold text-primary-foreground font-semibold px-8 py-3 rounded-full hover:bg-gold-glow transition-all duration-300 glow-gold"
             >
-              Join the Fanbase
+              Join the Fanverse
             </Link>
           </div>
         ) : (

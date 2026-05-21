@@ -5,36 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
-const defaultBars = [
-  {
-    id: "default-1",
-    song: "Medikal – Omo Ada",
-    excerpt: "\"I been working hard, made it from the dust / Now they calling my name, they must adjust\"",
-    explanation: "Medikal reflects on his humble beginnings and rise to fame. He's telling critics and doubters that his success demands respect and acknowledgment — they must adapt to the new reality of his status.",
-    tags: ["Hustle", "Success"],
-  },
-  {
-    id: "default-2",
-    song: "Medikal – La Hustle",
-    excerpt: "\"La boys don't sleep, we grind through the night / Every move we make, we doing it right\"",
-    explanation: "A tribute to his La (Labadi) community roots. He emphasizes the relentless work ethic and discipline of his crew — a shoutout to his origins and the values that shaped him.",
-    tags: ["Community", "Grind"],
-  },
-  {
-    id: "default-3",
-    song: "Medikal – Ayekoo",
-    excerpt: "\"Chale, I no rest till I get to the top / Money on my mind, I no go stop\"",
-    explanation: "Using Ghanaian street slang ('Chale' = friend), Medikal expresses his unrelenting drive for financial success and elevation. 'Ayekoo' itself means 'well done' in Twi — celebrating milestones while staying motivated.",
-    tags: ["Motivation", "Ghanaian Slang"],
-  },
-  {
-    id: "default-4",
-    song: "Medikal – Crazy",
-    excerpt: "\"They said I was crazy for dreaming this big / Now look at me living exactly as I said\"",
-    explanation: "A powerful vindication bar. He was doubted for his ambitions, but his reality now matches his vision — the bar serves as proof that belief in oneself is the foundation of success.",
-    tags: ["Belief", "Vision"],
-  },
-];
+const defaultBars: Bar[] = [];
 
 interface Bar {
   id: string;

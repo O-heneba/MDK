@@ -54,7 +54,7 @@ const Profile = () => {
         youtube: data.youtube || "",
         location: data.location || "",
       });
-      setAvatarUrl(data.avatar_url || null);
+      setAvatarUrl(data.avatar_url);
     }
     setLoading(false);
   };
@@ -93,20 +93,23 @@ const Profile = () => {
     setStats({ totalStreams: total, currentStreak: streak, bestStreak: Math.max(best, current, streak) });
   };
 
-   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!user || !e.target.files?.[0]) return;
     setUploadingAvatar(true);
     const file = e.target.files[0];
     const ext = file.name.split(".").pop();
     const path = `${user.id}/avatar.${ext}`;
+
     const { error: uploadError } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
     if (uploadError) {
       toast({ title: "Upload failed", description: uploadError.message, variant: "destructive" });
       setUploadingAvatar(false);
       return;
     }
+
     const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(path);
     const newUrl = `${urlData.publicUrl}?t=${Date.now()}`;
+
     const { error: updateError } = await supabase.from("profiles").update({ avatar_url: newUrl }).eq("user_id", user.id);
     if (updateError) {
       toast({ title: "Error", description: updateError.message, variant: "destructive" });
@@ -116,7 +119,6 @@ const Profile = () => {
     }
     setUploadingAvatar(false);
   };
-
 
   const handleSave = async () => {
     if (!user) return;
@@ -150,10 +152,10 @@ const Profile = () => {
     <div className="min-h-screen bg-background pt-20 pb-16">
       <div className="container mx-auto px-4 max-w-3xl">
         <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-gold text-sm mb-8 transition-colors">
-          <ArrowLeft className="w-4 h-4" /> Back to BKY FAMILY
+          <ArrowLeft className="w-4 h-4" /> Back to Fanverse
         </Link>
 
-           <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4 mb-8">
           {/* Avatar with upload */}
           <div className="relative group">
             <div className="w-16 h-16 rounded-full bg-gold/20 border-2 border-gold/40 flex items-center justify-center overflow-hidden">
@@ -217,7 +219,7 @@ const Profile = () => {
             />
           </div>
 
-           <div>
+          <div>
             <label className="block text-xs text-muted-foreground uppercase tracking-widest mb-1.5">Location</label>
             <input
               value={profile.location}
@@ -226,7 +228,6 @@ const Profile = () => {
               className="w-full bg-muted/40 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold/50 transition-colors"
             />
           </div>
-
 
           <h3 className="font-display text-xl text-foreground pt-2">Social Media Handles</h3>
 

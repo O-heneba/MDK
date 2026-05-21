@@ -22,6 +22,7 @@ const Gallery = () => {
   const [showUpload, setShowUpload] = useState(false);
   const [caption, setCaption] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
     fetchGallery();
@@ -86,7 +87,6 @@ const Gallery = () => {
           </p>
         </div>
 
-        {/* Upload button */}
         {user && (
           <div className="text-center mb-8">
             {!showUpload ? (
@@ -123,33 +123,41 @@ const Gallery = () => {
             <p>No photos yet. Be the first to share!</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
-            {items.map((item) => (
-              <div key={item.id} className="rounded-xl overflow-hidden border border-border hover:border-gold/30 transition-all group">
-                <div
-                  onClick={() => setSelectedImage(item.image_url)}
-                  className="aspect-square cursor-pointer overflow-hidden"
-                >
-                  <img
-                    src={item.image_url}
-                    alt={item.caption || "Fan photo"}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                {item.uploaded_by && (
-                  <div className="px-3 py-2 bg-card">
-                    <Link to={`/user/${item.uploaded_by}`} className="text-xs text-muted-foreground hover:text-gold transition-colors">
-                      by {item.username}
-                    </Link>
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
+              {items.slice(0, visibleCount).map((item) => (
+                <div key={item.id} className="rounded-xl overflow-hidden border border-border hover:border-gold/30 transition-all group">
+                  <div
+                    onClick={() => setSelectedImage(item.image_url)}
+                    className="aspect-square cursor-pointer overflow-hidden"
+                  >
+                    <img
+                      src={item.image_url}
+                      alt={item.caption || "Fan photo"}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
                   </div>
-                )}
+                  {item.uploaded_by && (
+                    <div className="px-3 py-2 bg-card">
+                      <Link to={`/user/${item.uploaded_by}`} className="text-xs text-muted-foreground hover:text-gold transition-colors">
+                        by {item.username}
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            {items.length > visibleCount && (
+              <div className="text-center pt-8">
+                <button onClick={() => setVisibleCount((c) => c + 12)} className="inline-flex items-center gap-2 border border-gold/40 text-gold font-semibold px-6 py-2.5 rounded-full hover:bg-gold/10 transition-all text-sm">
+                  Load More ({items.length - visibleCount} remaining)
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
 
-        {/* Lightbox */}
         {selectedImage && (
           <div className="fixed inset-0 z-50 bg-background/90 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setSelectedImage(null)}>
             <button className="absolute top-6 right-6 text-foreground hover:text-gold transition-colors">

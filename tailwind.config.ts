@@ -93,7 +93,7 @@ export default {
         "gradient-card": "linear-gradient(145deg, hsl(0 0% 10%), hsl(0 0% 7%))",
       },
       boxShadow: {
-         gold: "0 0 30px hsl(0 72% 40% / 0.3)",
+        gold: "0 0 30px hsl(0 72% 40% / 0.3)",
         "gold-lg": "0 0 60px hsl(0 72% 40% / 0.4)",
         card: "0 4px 24px hsl(0 0% 0% / 0.5)",
       },

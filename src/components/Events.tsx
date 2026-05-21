@@ -17,6 +17,7 @@ interface Event {
 const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
+  const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
     supabase.from("events").select("*").order("event_date", { ascending: tab === "upcoming" }).then(({ data }) => {
@@ -41,7 +42,7 @@ const Events = () => {
           {(["upcoming", "past"] as const).map((t) => (
             <button
               key={t}
-              onClick={() => setTab(t)}
+              onClick={() => { setTab(t); setVisibleCount(6); }}
               className={`px-5 py-2 rounded-full text-sm font-medium border transition-all capitalize ${
                 tab === t ? "bg-gold text-primary-foreground border-gold" : "border-border text-muted-foreground hover:border-gold/40"
               }`}
@@ -57,37 +58,46 @@ const Events = () => {
             <p>No {tab} events right now. Check back soon!</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {filtered.map((event) => (
-              <div key={event.id} className="gradient-card rounded-2xl border border-border overflow-hidden card-shadow hover:border-gold/30 transition-all duration-300">
-                {event.image_url && (
-                  <img src={event.image_url} alt={event.title} className="w-full h-48 object-cover" />
-                )}
-                <div className="p-6">
-                  <div className="text-xs text-gold uppercase tracking-widest mb-2">
-                    {format(new Date(event.event_date), "MMM dd, yyyy • h:mm a")}
-                  </div>
-                  <h3 className="font-display text-2xl text-foreground mb-2">{event.title}</h3>
-                  {event.description && <p className="text-muted-foreground text-sm mb-3">{event.description}</p>}
-                  {event.location && (
-                    <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-3">
-                      <MapPin className="w-3.5 h-3.5 text-gold" /> {event.location}
+          <>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {filtered.slice(0, visibleCount).map((event) => (
+                <div key={event.id} className="gradient-card rounded-2xl border border-border overflow-hidden card-shadow hover:border-gold/30 transition-all duration-300">
+                  {event.image_url && (
+                    <img src={event.image_url} alt={event.title} className="w-full h-48 object-cover" />
+                  )}
+                  <div className="p-6">
+                    <div className="text-xs text-gold uppercase tracking-widest mb-2">
+                      {format(new Date(event.event_date), "MMM dd, yyyy • h:mm a")}
                     </div>
-                  )}
-                  {event.ticket_url && (
-                    <a
-                      href={event.ticket_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 bg-gold text-primary-foreground text-sm font-semibold px-5 py-2 rounded-full hover:bg-gold-glow transition-all"
-                    >
-                      <Ticket className="w-3.5 h-3.5" /> Get Tickets
-                    </a>
-                  )}
+                    <h3 className="font-display text-2xl text-foreground mb-2">{event.title}</h3>
+                    {event.description && <p className="text-muted-foreground text-sm mb-3">{event.description}</p>}
+                    {event.location && (
+                      <div className="flex items-center gap-1.5 text-muted-foreground text-sm mb-3">
+                        <MapPin className="w-3.5 h-3.5 text-gold" /> {event.location}
+                      </div>
+                    )}
+                    {event.ticket_url && (
+                      <a
+                        href={event.ticket_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 bg-gold text-primary-foreground text-sm font-semibold px-5 py-2 rounded-full hover:bg-gold-glow transition-all"
+                      >
+                        <Ticket className="w-3.5 h-3.5" /> Get Tickets
+                      </a>
+                    )}
+                  </div>
                 </div>
+              ))}
+            </div>
+            {filtered.length > visibleCount && (
+              <div className="text-center pt-8">
+                <button onClick={() => setVisibleCount((c) => c + 6)} className="inline-flex items-center gap-2 border border-gold/40 text-gold font-semibold px-6 py-2.5 rounded-full hover:bg-gold/10 transition-all text-sm">
+                  Load More ({filtered.length - visibleCount} remaining)
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </section>

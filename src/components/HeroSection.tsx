@@ -1,5 +1,6 @@
-import { ChevronDown, Music2 } from "lucide-react";
-import heroBanner from "@/assets/hero-banner.jpg";
+import { ChevronDown } from "lucide-react";
+import heroBanner from "@/assets/hero-banner.webp";
+import bykLogo from "@/assets/byklogo.jpg";
 
 const HeroSection = () => {
   return (
@@ -8,7 +9,7 @@ const HeroSection = () => {
       <div className="absolute inset-0">
         <img
           src={heroBanner}
-          alt="Medikal Fanbase"
+          alt="BYK Fanbase"
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
@@ -17,14 +18,14 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 animate-fade-up">
         <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 rounded-full px-4 py-1.5 mb-6">
-          <Music2 className="w-3.5 h-3.5 text-gold" />
+          <img src={bykLogo} alt="BYK" className="w-4 h-4 rounded-full object-cover" />
           <span className="text-gold text-xs font-medium tracking-widest uppercase">Official Beyond Kontrol Family Platform</span>
         </div>
 
-        <h1 className="font-display text-7xl md:text-[120px] leading-none tracking-widest mb-2">
-          <span className="shimmer-text">MEDIKAL</span>
+        <h1 className="font-display font-bold text-7xl md:text-[120px] leading-none tracking-widest mb-2 text-white">
+          MEDIKAL
         </h1>
-        <h2 className="font-display text-3xl md:text-5xl text-foreground/80 tracking-widest mb-6">
+        <h2 className="font-display font-bold text-3xl md:text-5xl text-white tracking-widest mb-6">
           FAN BASE
         </h2>
 
@@ -54,7 +55,7 @@ const HeroSection = () => {
             { name: "Spotify", url: "https://open.spotify.com/search/medikal" },
             { name: "Audiomack", url: "https://audiomack.com/medikal" },
             { name: "Boomplay", url: "https://www.boomplay.com/search/default/Medikal" },
-            { name: "YouTube", url: "https://www.youtube.com/@medikalmdk1" },
+            { name: "YouTube", url: "https://www.youtube.com/@medikal" },
           ].map(({ name, url }) => (
             <a
               key={name}

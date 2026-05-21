@@ -11,14 +11,36 @@ interface Album {
   audiomack_url: string | null;
   boomplay_url: string | null;
   youtube_url: string | null;
+  apple_music_url: string | null;
+  amazon_music_url: string | null;
+  deezer_url: string | null;
+  tidal_url: string | null;
+  soundcloud_url: string | null;
+  itunes_url: string | null;
+  youtube_music_url: string | null;
 }
+
+const platformLinks: { key: keyof Album; label: string }[] = [
+  { key: "spotify_url", label: "Spotify" },
+  { key: "apple_music_url", label: "Apple Music" },
+  { key: "youtube_music_url", label: "YouTube Music" },
+  { key: "audiomack_url", label: "Audiomack" },
+  { key: "boomplay_url", label: "Boomplay" },
+  { key: "youtube_url", label: "YouTube" },
+  { key: "itunes_url", label: "iTunes" },
+  { key: "amazon_music_url", label: "Amazon Music" },
+  { key: "deezer_url", label: "Deezer" },
+  { key: "soundcloud_url", label: "SoundCloud" },
+  { key: "tidal_url", label: "Tidal" },
+];
 
 const Albums = () => {
   const [albums, setAlbums] = useState<Album[]>([]);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   useEffect(() => {
     supabase.from("albums").select("*").order("release_year", { ascending: false }).then(({ data }) => {
-      if (data) setAlbums(data);
+      if (data) setAlbums(data as Album[]);
     });
   }, []);
 
@@ -42,29 +64,41 @@ const Albums = () => {
             <p>Albums coming soon. Stay tuned!</p>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {albums.map((album) => (
-              <div key={album.id} className="gradient-card rounded-2xl border border-border overflow-hidden card-shadow hover:border-gold/30 transition-all duration-300 group">
-                {album.cover_url ? (
-                  <img src={album.cover_url} alt={album.title} className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500" />
-                ) : (
-                  <div className="w-full aspect-square bg-muted/30 flex items-center justify-center">
-                    <Disc3 className="w-16 h-16 text-muted-foreground/30" />
-                  </div>
-                )}
-                <div className="p-5">
-                  <h3 className="font-display text-2xl text-foreground">{album.title}</h3>
-                  {album.release_year && <p className="text-gold text-sm mt-1">{album.release_year}</p>}
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {album.spotify_url && <a href={album.spotify_url} target="_blank" rel="noopener noreferrer" className="text-xs border border-border px-3 py-1 rounded-full text-muted-foreground hover:border-gold/40 hover:text-gold transition-colors">Spotify</a>}
-                    {album.audiomack_url && <a href={album.audiomack_url} target="_blank" rel="noopener noreferrer" className="text-xs border border-border px-3 py-1 rounded-full text-muted-foreground hover:border-gold/40 hover:text-gold transition-colors">Audiomack</a>}
-                    {album.boomplay_url && <a href={album.boomplay_url} target="_blank" rel="noopener noreferrer" className="text-xs border border-border px-3 py-1 rounded-full text-muted-foreground hover:border-gold/40 hover:text-gold transition-colors">Boomplay</a>}
-                    {album.youtube_url && <a href={album.youtube_url} target="_blank" rel="noopener noreferrer" className="text-xs border border-border px-3 py-1 rounded-full text-muted-foreground hover:border-gold/40 hover:text-gold transition-colors">YouTube</a>}
+          <>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {albums.slice(0, visibleCount).map((album) => (
+                <div key={album.id} className="gradient-card rounded-2xl border border-border overflow-hidden card-shadow hover:border-gold/30 transition-all duration-300 group">
+                  {album.cover_url ? (
+                    <img src={album.cover_url} alt={album.title} className="w-full aspect-square object-cover group-hover:scale-105 transition-transform duration-500" />
+                  ) : (
+                    <div className="w-full aspect-square bg-muted/30 flex items-center justify-center">
+                      <Disc3 className="w-16 h-16 text-muted-foreground/30" />
+                    </div>
+                  )}
+                  <div className="p-5">
+                    <h3 className="font-display text-2xl text-foreground">{album.title}</h3>
+                    {album.release_year && <p className="text-gold text-sm mt-1">{album.release_year}</p>}
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {platformLinks.map(({ key, label }) =>
+                        album[key] ? (
+                          <a key={key} href={album[key] as string} target="_blank" rel="noopener noreferrer" className="text-xs border border-border px-3 py-1 rounded-full text-muted-foreground hover:border-gold/40 hover:text-gold transition-colors">
+                            {label}
+                          </a>
+                        ) : null
+                      )}
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+            {albums.length > visibleCount && (
+              <div className="text-center pt-8">
+                <button onClick={() => setVisibleCount((c) => c + 6)} className="inline-flex items-center gap-2 border border-gold/40 text-gold font-semibold px-6 py-2.5 rounded-full hover:bg-gold/10 transition-all text-sm">
+                  Load More ({albums.length - visibleCount} remaining)
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </section>

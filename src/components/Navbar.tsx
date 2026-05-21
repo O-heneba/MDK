@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Music, Flame, BookOpen, Megaphone, Bot, Menu, X, LogIn, LogOut, User, Trophy, Disc3, CalendarDays, Bell, Camera, Shield, Home } from "lucide-react";
+import { Music, Flame, BookOpen, Megaphone, Bot, Menu, X, LogIn, LogOut, User, Trophy, Disc3, CalendarDays, Bell, Camera, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import bykLogo from "@/assets/byklogo.jpg";
 
 const navLinks = [
-  { label: "Home", href: "#hub", icon: Home },
+  { label: "Fan Hub", href: "#hub", icon: Music },
   { label: "News", href: "#announcements", icon: Bell },
   { label: "Stream", href: "#stream", icon: Flame },
   { label: "Music", href: "#music", icon: Music },
@@ -39,9 +39,8 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <a href="#hub" className="flex items-center gap-2 group">
           <img src={bykLogo} alt="BYK" className="w-8 h-8 rounded-full object-cover" />
-          <span className="font-display text-2xl text-gold tracking-wider">BEYOND </span>
-          <span className="font-display text-2xl text-foreground tracking-wider">KONTROL</span>
-          <span className="font-display text-2xl text-foreground tracking-wider">FAMILY</span>
+          <span className="font-display text-2xl text-gold tracking-wider">BEYOND</span>
+          <span className="font-display text-2xl text-foreground tracking-wider">KONTROL FAMILY</span>
         </a>
 
         <div className="hidden lg:flex items-center gap-0.5">
