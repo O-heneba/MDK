@@ -15,9 +15,17 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
       </div>
 
+      {/* 3D decorative layers */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="floating-orb bg-gold/20 left-10 top-20 w-40 h-40" />
+        <div className="floating-orb bg-white/10 right-16 top-32 w-28 h-28" />
+        <div className="floating-grid left-1/2 top-16 -translate-x-1/2" />
+      </div>
+
       {/* Content */}
-      <div className="relative z-10 text-center px-4 animate-fade-up">
-        <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 rounded-full px-4 py-1.5 mb-6">
+      <div className="relative z-10 text-center px-4 animate-fade-up scene">
+        <div className="hero-3d inline-block">
+          <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 rounded-full px-4 py-1.5 mb-6">
           <img src={bykLogo} alt="BYK" className="w-4 h-4 rounded-full object-cover" />
           <span className="text-gold text-xs font-medium tracking-widest uppercase">Official Beyond Kontrol Family Platform</span>
         </div>
@@ -36,13 +44,13 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#stream"
-            className="inline-flex items-center justify-center gap-2 bg-gold text-primary-foreground font-semibold px-8 py-3 rounded-full hover:bg-gold-glow transition-all duration-300 glow-gold pulse-gold"
+            className="hero-card-3d inline-flex items-center justify-center gap-2 bg-gold text-primary-foreground font-semibold px-8 py-3 rounded-full hover:bg-gold-glow transition-all duration-300 glow-gold pulse-gold"
           >
             Start Streaming Streak
           </a>
           <a
             href="#bars"
-            className="inline-flex items-center justify-center gap-2 border border-gold/40 text-gold font-semibold px-8 py-3 rounded-full hover:bg-gold/10 transition-all duration-300"
+            className="hero-card-3d inline-flex items-center justify-center gap-2 border border-gold/40 text-gold font-semibold px-8 py-3 rounded-full hover:bg-gold/10 transition-all duration-300"
           >
             Explore Bars
           </a>
@@ -69,6 +77,7 @@ const HeroSection = () => {
           ))}
         </div>
       </div>
+    </div>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-down text-muted-foreground">

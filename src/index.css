@@ -13,23 +13,23 @@
   :root {
     /* Core palette */
     --background: 0 0% 5%;
-    --foreground: 0 10% 92%;
+    --foreground: 0 0% 100%;
 
     --card: 0 0% 8%;
-    --card-foreground: 0 10% 92%;
+    --card-foreground: 0 0% 100%;
 
     --popover: 0 0% 8%;
-    --popover-foreground: 0 10% 92%;
+    --popover-foreground: 0 0% 100%;
 
     /* Red primary */
     --primary: 0 72% 40%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 12%;
-    --secondary-foreground: 0 10% 92%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 14%;
-    --muted-foreground: 0 10% 55%;
+    --muted-foreground: 0 0% 72%;
 
     --accent: 0 72% 40%;
     --accent-foreground: 0 0% 100%;
@@ -175,6 +175,63 @@
 
   .animate-bounce-down {
     animation: bounce-down 1.5s ease-in-out infinite;
+  }
+
+  /* 3D floating hero */
+  .scene {
+    perspective: 1400px;
+    perspective-origin: center;
+  }
+
+  .hero-3d {
+    transform-style: preserve-3d;
+    animation: float3d 9s ease-in-out infinite;
+  }
+
+  .hero-card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .hero-card-3d:hover {
+    transform: translateZ(22px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  }
+
+  .floating-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(28px);
+    opacity: 0.55;
+    animation: orbGlide 12s ease-in-out infinite;
+  }
+
+  .floating-grid {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transform: translateZ(0);
+    animation: gridDrift 16s linear infinite;
+  }
+
+  @keyframes float3d {
+    0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+    25% { transform: translateY(-10px) rotateX(1deg) rotateY(2deg); }
+    50% { transform: translateY(-6px) rotateX(-1deg) rotateY(-2deg); }
+    75% { transform: translateY(-10px) rotateX(2deg) rotateY(1deg); }
+  }
+
+  @keyframes orbGlide {
+    0% { transform: translate3d(-20px, 0, 0); }
+    50% { transform: translate3d(20px, 10px, 0); }
+    100% { transform: translate3d(-20px, 0, 0); }
+  }
+
+  @keyframes gridDrift {
+    0% { transform: translate3d(0, 0, 0) rotateZ(0deg); }
+    50% { transform: translate3d(8px, 6px, 0) rotateZ(10deg); }
+    100% { transform: translate3d(0, 0, 0) rotateZ(0deg); }
   }
 
   /* Red shimmer text */
